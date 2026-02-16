@@ -1,8 +1,10 @@
 # Build stage
 FROM node:18-bullseye-slim AS build
 WORKDIR /app
-COPY . .
-RUN npm ci --no-audit --no-fund
+# copy package files first to leverage layer caching
+COPY package*.json ./
+# use npm install since package-lock.json is not committed
+RUN npm install --no-audit --no-fund
 COPY . .
 RUN npm run build
 
