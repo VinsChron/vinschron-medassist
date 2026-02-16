@@ -2,7 +2,7 @@
 FROM node:18-bullseye-slim AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --silent
+RUN npm ci --no-audit --no-fund
 COPY . .
 RUN npm run build
 
